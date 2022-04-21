@@ -23,8 +23,8 @@ function save(filename, data) {
 var movieList = [];
 
 $(".lister-item").each(function() {
-	var title = $(this).find("h3 a").text();
-	var imdbId = $(this).find("h3 a").attr("href").substring(7, 16);
+	var title = $(this).find("h3 a").text().trim();
+	var imdbId = $(this).find("h3 a").attr("href").trim().substring(7, 16);
 	var year = parseInt($(this).find(".lister-item-header .text-muted").text().trim().substring(1, 5));
 	var rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
 	var votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
