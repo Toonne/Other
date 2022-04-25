@@ -33,13 +33,19 @@ $(".lister-item").each(function() {
 
 	var rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
 	var votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
+	var plot = null;
+	var plotBox = $(this).find(".ratings-bar").next();
+	if(plotBox.hasClass("text-muted")) {
+		plot = $(this).find(".ratings-bar").next().text().trim();
+	}
 
 	var obj = {
 		title : title,
 		imdbId : imdbId,
 		year : year,
 		rating : rating,
-		votes : votes
+		votes : votes,
+		plot : plot
 	}
 	
 	movieList.push(obj)
