@@ -51,4 +51,4 @@ $(".lister-item").each(function() {
 	movieList.push(obj)
 });
 
-save("test.json", JSON.stringify(movieList, null, "\t"));
+save("movies.json", JSON.stringify(movieList, null, "\t"));
