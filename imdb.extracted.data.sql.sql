@@ -14,5 +14,6 @@ SELECT
 	ImdbId = JSON_VALUE([value], '$.imdbId'),
 	[Year] = JSON_VALUE([value], '$.year'),
 	Rating = JSON_VALUE([value], '$.rating'),
-	Votes = JSON_VALUE([value], '$.votes')
+	Votes = JSON_VALUE([value], '$.votes'),
+	Plot = JSON_VALUE([value], '$.plot')
 FROM OPENJSON(@jsonData, '$') AS MovieList
