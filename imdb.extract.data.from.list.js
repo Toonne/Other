@@ -6,7 +6,12 @@ Usage:
 
 */
 
+/* jshint strict: true */
+/* jshint esversion: 6 */
+/* global $ */
+
 function save(filename, data) {
+	"use strict";
 	const blob = new Blob([data], {type: 'text/csv'});
 	if(window.navigator.msSaveOrOpenBlob) {
 		window.navigator.msSaveBlob(blob, filename);
@@ -23,9 +28,10 @@ function save(filename, data) {
 var movieList = [];
 
 $(".lister-item").each(function() {
+	"use strict";
 	var title = $(this).find("h3 a").text().trim();
 	var imdbId = $(this).find("h3 a").attr("href").trim().substring(7, 16);
-	var year = $(this).find(".lister-item-header .text-muted").text().trim(); // (I) (dddd)
+	var year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
 
 	let yearPattern = /\((\d{4})\)/i;
 	let result = year.match(yearPattern);
@@ -38,6 +44,9 @@ $(".lister-item").each(function() {
 	if(plotBox.hasClass("text-muted")) {
 		plot = $(this).find(".ratings-bar").next().text().trim();
 	}
+	var certificate = $(this).find("p.text-muted .certificate").text().trim();
+	var runtime = $(this).find("p.text-muted .runtime").text().trim();
+	var genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
 
 	var obj = {
 		title : title,
@@ -45,10 +54,13 @@ $(".lister-item").each(function() {
 		year : year,
 		rating : rating,
 		votes : votes,
-		plot : plot
-	}
-	
-	movieList.push(obj)
+		plot : plot,
+		certificate : certificate,
+		runetime : runtime,
+		genre : genre
+	};
+
+	movieList.push(obj);
 });
 
 save("movies.json", JSON.stringify(movieList, null, "\t"));
