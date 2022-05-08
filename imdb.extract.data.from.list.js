@@ -47,6 +47,8 @@ $(".lister-item").each(function() {
 	var certificate = $(this).find("p.text-muted .certificate").text().trim();
 	var runtime = $(this).find("p.text-muted .runtime").text().trim();
 	var genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
+	var posterUrl = $(this).find(".lister-item-image img").attr("src");
+
 
 	var obj = {
 		title : title,
@@ -57,7 +59,8 @@ $(".lister-item").each(function() {
 		plot : plot,
 		certificate : certificate,
 		runetime : runtime,
-		genre : genre
+		genre : genre,
+		posterUrl : posterUrl
 	};
 
 	movieList.push(obj);
