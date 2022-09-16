@@ -25,3 +25,20 @@ Add-VMAssignableDevice -VM $vm -LocationPath $locationPath2 -Verbose
 Remove-VMAssignableDevice -VMName 'pfSense' -Verbose
 (Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_8086&DEV_105E&SUBSYS_115E8086*' } | Mount-VmHostAssignableDevice -Verbose
 (Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_8086&DEV_105E&SUBSYS_115E8086*' } | Enable-PnpDevice -Confirm:$false -Verbose
+
+#Below example is passing through ASUS USB-C PCI controller card to a virtual machine running Home Assistant
+#Useful with for example an Aeotec Z-Stick Gen5 
+$vmName = 'HOMIE'
+$device1 = 'ASMedia USB 3.1 eXtensible Host Controller - 1.10 (Microsoft)'
+$vm = Get-VM -Name $vmName
+
+$dev = (Get-PnpDevice -PresentOnly).Where{ $_.FriendlyName -like $device1 }
+Disable-PnpDevice -InstanceId $dev.InstanceId -Confirm:$false
+$locationPath = (Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationPaths -InstanceId $dev.InstanceId).Data[0]
+Dismount-VmHostAssignableDevice -LocationPath $locationPath -Force -Verbose
+Add-VMAssignableDevice -VM $vm -LocationPath $locationPath -Verbose
+
+#remove
+Remove-VMAssignableDevice -VMName 'HOMIE' -Verbose
+(Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Mount-VmHostAssignableDevice -Verbose
+(Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Enable-PnpDevice -Confirm:$false -Verbose
