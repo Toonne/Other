@@ -3,7 +3,7 @@
 
 $vmName = 'pfSense'
 $device1 = 'Intel(R) PRO/1000 PT Dual Port Server Adapter'
-$device2 = ''Intel(R) PRO/1000 PT Dual Port Server Adapter #2'
+$device2 = 'Intel(R) PRO/1000 PT Dual Port Server Adapter #2'
 $vm = Get-VM -Name $vmName
 
 $dev = (Get-PnpDevice -PresentOnly).Where{ $_.FriendlyName -like $device1 }
