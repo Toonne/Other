@@ -56,3 +56,7 @@ $locationPath = (Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationPaths -In
 Dismount-VmHostAssignableDevice -LocationPath $locationPath -Force -Verbose
 Add-VMAssignableDevice -VM $vm -LocationPath $locationPath -Verbose
 
+#remove
+Remove-VMAssignableDevice -VMName 'TrueNAS SCALE' -Verbose
+(Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_1000&DEV_0097&SUBSYS_30E01000*' } | Mount-VmHostAssignableDevice -Verbose
+(Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_1000&DEV_0097&SUBSYS_30E01000*' } | Enable-PnpDevice -Confirm:$false -Verbose
