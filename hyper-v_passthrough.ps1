@@ -42,3 +42,17 @@ Add-VMAssignableDevice -VM $vm -LocationPath $locationPath -Verbose
 Remove-VMAssignableDevice -VMName 'HOMIE' -Verbose
 (Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Mount-VmHostAssignableDevice -Verbose
 (Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Enable-PnpDevice -Confirm:$false -Verbose
+
+#Below example is passing through a 9300-8i PCI controller card to a virtual machine running TrueNAS SCALE
+$vmName = 'TrueNAS SCALE'
+$device1 = 'Avago Adapter, SAS3 3008 Fury -StorPort'
+$vm = Get-VM -Name $vmName
+
+Stop-Service "LSAService" #Will lock and prevent Disable-PnpDevice from running
+
+$dev = (Get-PnpDevice -PresentOnly).Where{ $_.FriendlyName -like $device1 }
+Disable-PnpDevice -InstanceId $dev.InstanceId -Confirm:$false
+$locationPath = (Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationPaths -InstanceId $dev.InstanceId).Data[0]
+Dismount-VmHostAssignableDevice -LocationPath $locationPath -Force -Verbose
+Add-VMAssignableDevice -VM $vm -LocationPath $locationPath -Verbose
+
