@@ -40,8 +40,13 @@ Add-VMAssignableDevice -VM $vm -LocationPath $locationPath -Verbose
 
 #remove
 Remove-VMAssignableDevice -VMName 'HOMIE' -Verbose
+
 (Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Mount-VmHostAssignableDevice -Verbose
 (Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_1B21&DEV_1242&SUBSYS_86961043*' } | Enable-PnpDevice -Confirm:$false -Verbose
+
+#9305-24i
+(Get-VMHostAssignableDevice).Where{ $_.InstanceID -like '*VEN_1000&DEV_00C4&SUBSYS_31A01000*' } | Mount-VmHostAssignableDevice -Verbose
+(Get-PnpDevice -PresentOnly).Where{ $_.InstanceId -like '*VEN_1000&DEV_00C4&SUBSYS_31A01000*' } | Enable-PnpDevice -Confirm:$false -Verbose
 
 #Below example is passing through a 9300-8i PCI controller card to a virtual machine running TrueNAS SCALE
 $vmName = 'TrueNAS SCALE'
