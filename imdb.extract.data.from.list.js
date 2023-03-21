@@ -42,8 +42,15 @@ function getMovieList() {
     $(".lister-item").each(function() {
         "use strict";
         var title = $(this).find("h3 a").text().trim();
-        var imdbId = $(this).find("h3 a").attr("href").trim().substring(7, 16);
+        var imdbUrl = $(this).find("h3 a").attr("href").trim();
+        var imdbPattern = /\/title\/tt(.*?)\//;
+        let imdbId = imdbUrl.match(imdbPattern);
         var year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
+
+        //ugly fix
+        year = year.replace(" TV Movie", "");
+        year = year.replace(" Video", "");
+        year = year.replace(" TV Special", "");
 
         let yearPattern = /\((\d{4})\)/i;
         let result = year.match(yearPattern);
