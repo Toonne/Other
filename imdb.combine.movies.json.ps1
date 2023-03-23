@@ -4,7 +4,7 @@ $files = Get-ChildItem "movies*.json" | Sort-Object { [regex]::Replace($_.Name, 
 
 foreach ($file in $files) {
 	#$file.Name;
-	$movieFilesArray.Add((Get-Content -Path $file.Name -Raw | ConvertFrom-Json));
+	$movieFilesArray.AddRange((Get-Content -Path $file.Name -Raw | ConvertFrom-Json));
 }
 
 $movieFilesArray | ConvertTo-Json -Compress -Depth 5 | Out-File -FilePath .\combinedfiles.json
