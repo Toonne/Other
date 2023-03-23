@@ -2,7 +2,7 @@
 // @name		Download JSON structures from IMDB
 // @namespace	https://srrdb.com/
 // @version		0.1
-// @description	Lists releases from srrdb.com on imdb.com
+// @description	Adds a "Download JSON structure" button to imdb lists
 // @author		Skalman
 // @match		https://imdb.com/search/title/*
 // @match		https://*.imdb.com/search/title/*
@@ -44,7 +44,8 @@ function getMovieList() {
         var title = $(this).find("h3 a").text().trim();
         var imdbUrl = $(this).find("h3 a").attr("href").trim();
         var imdbPattern = /\/title\/tt(.*?)\//;
-        let imdbId = imdbUrl.match(imdbPattern);
+        let result1 = imdbUrl.match(imdbPattern);
+        let imdbId = result1[1];
         var year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
 
         //ugly fix
