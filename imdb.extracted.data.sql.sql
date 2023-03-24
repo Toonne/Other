@@ -19,6 +19,8 @@ SELECT
 	Plot = JSON_VALUE([value], '$.plot')
 FROM OPENJSON(@jsonData, '$') AS MovieList
 
+UPDATE imdb_top SET imdbId = REPLACE(imdbId, 'tt', '') WHERE imdbId LIKE 'tt%'
+
 /* Create imdb_top table */
 CREATE TABLE [dbo].[imdb_top](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
