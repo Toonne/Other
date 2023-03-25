@@ -17,6 +17,13 @@ SELECT
 	Rating = JSON_VALUE([value], '$.rating'),
 	Votes = JSON_VALUE([value], '$.votes'),
 	Plot = JSON_VALUE([value], '$.plot')
+
+	--,[Certificate] = JSON_VALUE([value], '$.certificate'),
+	--Runtime = JSON_VALUE([value], '$.runtime'),
+	--Genre = JSON_QUERY([value], '$.genre'),
+	--PosterUrl = JSON_VALUE([value], '$.posterUrl'), --usually a placeholder
+	--Metascore = JSON_VALUE([value], '$.metascore'),
+	--Stars = JSON_QUERY([value], '$.stars')
 FROM OPENJSON(@jsonData, '$') AS MovieList
 
 UPDATE imdb_top SET imdbId = REPLACE(imdbId, 'tt', '') WHERE imdbId LIKE 'tt%'
