@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+# Hides the enormous Bing/Discover button in Edge, added around 2023-03
+# https://www.reddit.com/r/sysadmin/comments/11r5kxa/so_that_massive_bing_button_on_edge_is_super/
+
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge]
+"HubsSidebarEnabled"=dword:00000000
