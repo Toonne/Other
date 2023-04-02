@@ -1,0 +1,3 @@
+
+#Formula to get a date time from Epoch. ÅÅÅÅ för year if Swedish.
+=TEXT((MID(A1;3;10)/86400)+DATE(1970;1;1);"YYYY-MM-DD tt:mm:ss")
