@@ -18,9 +18,8 @@
 //https://www.imdb.com/search/title/?groups=top_1000&sort=num_votes,desc
 //https://www.imdb.com/search/title/?num_votes=100000,&sort=num_votes,desc
 
-//Series URLs:
-//https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_special,video,tv_series&release_date=1801-01-01,2023-12-31&sort=num_votes,desc&count=250
-//https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_special,video,tv_series,mini_series&release_date=1801-01-01,2023-12-31&sort=num_votes,desc&count=250
+//More title_type URLs:
+//https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_special,video,tv_series,mini_series,game&release_date=1801-01-01,2023-12-31&sort=num_votes,desc&count=250
 
 //TODO: add support for directory, stars & gross
 
