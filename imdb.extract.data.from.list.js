@@ -119,7 +119,7 @@ function getMovieList() {
 }
 
 function saveJson() {
-    var movies = getMovieList();
+    let movies = getMovieList();
 
     save("movies.json", JSON.stringify(movies, null, "\t"));
 }
