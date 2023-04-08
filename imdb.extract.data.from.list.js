@@ -40,16 +40,16 @@ function save(filename, data) {
 }
 
 function getMovieList() {
-    var movieList = [];
+    let movieList = [];
 
     $(".lister-item").each(function() {
         "use strict";
-        var title = $(this).find("h3 a").text().trim();
-        var imdbUrl = $(this).find("h3 a").attr("href").trim();
-        var imdbPattern = /\/title\/tt(.*?)\//;
+        let title = $(this).find("h3 a").text().trim();
+        let imdbUrl = $(this).find("h3 a").attr("href").trim();
+        let imdbPattern = /\/title\/tt(.*?)\//;
         let result1 = imdbUrl.match(imdbPattern);
         let imdbId = result1[1];
-        var year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
+        let year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
 
         //ugly fix
         year = year.replace(" TV Movie", "");
@@ -60,30 +60,31 @@ function getMovieList() {
         let result = year.match(yearPattern);
         year = parseInt(result[1]);
 
-        var rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
-        var metascore = parseInt($(this).find(".ratings-metascore .metascore").text().trim());
-        var votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
-        var plot = null; //the plot string
-        var plotBox = $(this).find(".ratings-bar").next();
+        let rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
+        let metascore = parseInt($(this).find(".ratings-metascore .metascore").text().trim());
+        let votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
+        let plot = null; //the plot string
+        let plotBox = $(this).find(".ratings-bar").next();
+
         if(plotBox.hasClass("text-muted")) {
             plot = plotBox.text().trim();
         } else {
             //if we got here, starsBox will probably fail too
         }
-        var starsBox = plotBox.next();
-        var starsList = starsBox.find("a");
-        var stars = [];
+        let starsBox = plotBox.next();
+        let starsList = starsBox.find("a");
+        let stars = [];
 
         starsList.each(function() {
-            var personUrl = $(this).attr("href").trim();
+            let personUrl = $(this).attr("href").trim();
 
-            var starsPattern = /\/title\/tt(.*?)\//;
+            let starsPattern = /\/title\/tt(.*?)\//;
             let result2 = personUrl.match(starsPattern);
 
             let personId = result1[1];
-            var name = $(this).text().trim();
+            let name = $(this).text().trim();
 
-            var starObj = {
+            let starObj = {
               personId : personId,
               name : name
             };
@@ -91,12 +92,12 @@ function getMovieList() {
             stars.push(starObj);
         });
 
-        var certificate = $(this).find("p.text-muted .certificate").text().trim();
-        var runtime = $(this).find("p.text-muted .runtime").text().trim();
-        var genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
-        var posterUrl = $(this).find(".lister-item-image img").attr("src");
+        let certificate = $(this).find("p.text-muted .certificate").text().trim();
+        let runtime = $(this).find("p.text-muted .runtime").text().trim();
+        let genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
+        let posterUrl = $(this).find(".lister-item-image img").attr("src");
 
-        var obj = {
+        let obj = {
             title : title,
             imdbId : imdbId,
             year : year,
