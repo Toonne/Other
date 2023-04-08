@@ -75,8 +75,12 @@ function getMovieList() {
         var stars = [];
 
         starsList.each(function() {
-            var url = $(this).attr("href").trim();
-            var personId = url.substring(8, 15);
+            var personUrl = $(this).attr("href").trim();
+
+            var starsPattern = /\/title\/tt(.*?)\//;
+            let result2 = personUrl.match(starsPattern);
+
+            let personId = result1[1];
             var name = $(this).text().trim();
 
             var starObj = {
