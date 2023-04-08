@@ -39,6 +39,7 @@ INSERT INTO imdb_genre
 		SELECT ',' + REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', '') FROM imdb_top FOR XML PATH('') 
 	), 2 , 10000000)), ',') ORDER BY [value]
 
+--Save all genres alternative (better way)
 INSERT INTO imdb_genre
 	SELECT DISTINCT Genre.[value]
 	FROM imdb_top
