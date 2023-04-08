@@ -52,7 +52,14 @@ INSERT INTO imdb_movie_genre (movieId, genreId)
 	FROM imdb_top
 	CROSS APPLY STRING_SPLIT(REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', ''), ',') Genre
 	LEFT JOIN imdb_genre ON (Genre.[value] = imdb_genre.Genre)
-	
+
+--Save all actors
+INSERT INTO imdb_actor
+	SELECT DISTINCT p.*
+	FROM imdb_top
+	CROSS APPLY
+	OPENJSON (stars, '$') WITH(actorId nvarchar(10) '$.personId', actorName nvarchar (300) '$.name') p
+
 /* Create imdb_top table */
 CREATE TABLE [dbo].[imdb_top](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -79,4 +86,13 @@ CREATE TABLE [dbo].[imdb_genre](
  CONSTRAINT [UQ_imdb_genre] UNIQUE NONCLUSTERED ([Genre] ASC) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+/* Create imdb_actor table */
+CREATE TABLE [dbo].[imdb_actor](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ActorId] [char](10) NOT NULL,
+	[Actor] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_imdb_actor] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY],
+ CONSTRAINT [UQ_imdb_actor] UNIQUE NONCLUSTERED ([ActorId] ASC) ON [PRIMARY]
+) ON [PRIMARY]
 GO
