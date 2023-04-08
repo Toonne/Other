@@ -81,7 +81,7 @@ function getMovieList() {
             let starsPattern = /\/name\/nm(.*?)\//;
             let result2 = personUrl.match(starsPattern);
 
-            let personId = result1[1];
+            let personId = result2[1];
             let name = $(this).text().trim();
 
             let starObj = {
