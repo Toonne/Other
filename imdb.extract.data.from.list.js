@@ -78,7 +78,7 @@ function getMovieList() {
         starsList.each(function() {
             let personUrl = $(this).attr("href").trim();
 
-            let starsPattern = /\/title\/tt(.*?)\//;
+            let starsPattern = /\/name\/nm(.*?)\//;
             let result2 = personUrl.match(starsPattern);
 
             let personId = result1[1];
