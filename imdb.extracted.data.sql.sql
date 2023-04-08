@@ -31,7 +31,7 @@ FROM OPENJSON(@jsonData, '$') AS MovieList
 
 UPDATE imdb_top SET imdbId = REPLACE(imdbId, 'tt', '') WHERE imdbId LIKE 'tt%'
 
---Get all genres
+--Save all genres
 INSERT INTO imdb_genre
 	SELECT DISTINCT [value] FROM 
 	STRING_SPLIT((SELECT SUBSTRING(
@@ -60,6 +60,9 @@ GO
 /* Create imdb_genre table */
 CREATE TABLE [dbo].[imdb_genre](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Genre] [nvarchar](128) NOT NULL UNIQUE,
- CONSTRAINT [PK_imdb_genre] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY]) ON [PRIMARY]
+	[Genre] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_imdb_genre] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY],
+ CONSTRAINT [UQ_imdb_genre] UNIQUE NONCLUSTERED ([Genre] ASC) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 GO
