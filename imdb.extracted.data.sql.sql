@@ -39,6 +39,12 @@ INSERT INTO imdb_genre
 		SELECT ',' + REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', '') FROM imdb_top FOR XML PATH('') 
 	), 2 , 10000000)), ',') ORDER BY [value]
 
+INSERT INTO imdb_genre
+	SELECT DISTINCT Genre.[value]
+	FROM imdb_top
+	CROSS APPLY STRING_SPLIT (REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', ''), ',') Genre
+	ORDER BY Genre.[value]
+
 /* Create imdb_top table */
 CREATE TABLE [dbo].[imdb_top](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
