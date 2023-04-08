@@ -8,22 +8,25 @@ SQL server script to work with the extracted data from https://github.com/Toonne
 */
 
 DECLARE @jsonData NVARCHAR(MAX) = 'Place movies-info.json content here';
+SELECT @jsonData = BulkColumn FROM OPENROWSET (BULK 'D:\combinedfiles.json', SINGLE_NCLOB) AS JsonData;
 
---INSERT INTO imdb_top (title,imdbId,year,rating,votes,plot)
+--DELETE FROM imdb_top;
+--TRUNCATE TABLE imdb_top;
+
+--INSERT INTO imdb_top (title,imdbId,[year],rating,votes,plot,[certificate],runtime,genre,posterUrl,metascore,stars)
 SELECT
 	Title = JSON_VALUE([value], '$.title'),
 	ImdbId = JSON_VALUE([value], '$.imdbId'),
 	[Year] = JSON_VALUE([value], '$.year'),
 	Rating = JSON_VALUE([value], '$.rating'),
 	Votes = JSON_VALUE([value], '$.votes'),
-	Plot = JSON_VALUE([value], '$.plot')
-
-	--,[Certificate] = JSON_VALUE([value], '$.certificate'),
-	--Runtime = JSON_VALUE([value], '$.runtime'),
-	--Genre = JSON_QUERY([value], '$.genre'),
-	--PosterUrl = JSON_VALUE([value], '$.posterUrl'), --usually a placeholder
-	--Metascore = JSON_VALUE([value], '$.metascore'),
-	--Stars = JSON_QUERY([value], '$.stars')
+	Plot = JSON_VALUE([value], '$.plot'),
+	[Certificate] = JSON_VALUE([value], '$.certificate'),
+	Runtime = JSON_VALUE([value], '$.runtime'),
+	Genre = JSON_QUERY([value], '$.genre'),
+	PosterUrl = JSON_VALUE([value], '$.posterUrl'), --usually a placeholder
+	Metascore = JSON_VALUE([value], '$.metascore'),
+	Stars = JSON_QUERY([value], '$.stars')
 FROM OPENJSON(@jsonData, '$') AS MovieList
 
 UPDATE imdb_top SET imdbId = REPLACE(imdbId, 'tt', '') WHERE imdbId LIKE 'tt%'
@@ -37,5 +40,11 @@ CREATE TABLE [dbo].[imdb_top](
 	[rating] [decimal](8, 2) NULL,
 	[votes] [int] NULL,
 	[plot] [nvarchar](4000) NULL,
+	[certificate] [nvarchar](128) NULL,
+	[runtime] [nvarchar](128) NULL,
+	[genre] [nvarchar](max) NULL,
+	[posterUrl] [nvarchar](255) NULL,
+	[metascore] [int] NULL,
+	[stars] [nvarchar](max) NULL,
  CONSTRAINT [PK_imdb_top] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY]) ON [PRIMARY]
 GO
