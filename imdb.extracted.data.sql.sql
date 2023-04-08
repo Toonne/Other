@@ -39,13 +39,20 @@ INSERT INTO imdb_genre
 		SELECT ',' + REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', '') FROM imdb_top FOR XML PATH('') 
 	), 2 , 10000000)), ',') ORDER BY [value]
 
---Save all genres alternative (better way)
+--Save all genres (better way)
 INSERT INTO imdb_genre
 	SELECT DISTINCT Genre.[value]
 	FROM imdb_top
-	CROSS APPLY STRING_SPLIT (REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', ''), ',') Genre
+	CROSS APPLY STRING_SPLIT(REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', ''), ',') Genre
 	ORDER BY Genre.[value]
 
+--Normalize genre data
+INSERT INTO imdb_movie_genre (movieId, genreId)
+	SELECT imdb_top.Id, imdb_genre.Id
+	FROM imdb_top
+	CROSS APPLY STRING_SPLIT(REPLACE(SUBSTRING(genre, 2, LEN(genre) - 2), '"', ''), ',') Genre
+	LEFT JOIN imdb_genre ON (Genre.[value] = imdb_genre.Genre)
+	
 /* Create imdb_top table */
 CREATE TABLE [dbo].[imdb_top](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
