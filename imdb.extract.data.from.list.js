@@ -119,9 +119,18 @@ function getMovieList() {
 }
 
 function saveJson() {
-    let movies = getMovieList();
+	let movies = getMovieList();
+	
+	//get current page
+	var pageCountString = $(".nav .desc span:first-child").text().trim().replace(/,/g, "");
 
-    save("movies.json", JSON.stringify(movies, null, "\t"));
+	var pagePattern = /(\d+)\-(\d+) of (\d+) titles/;
+	var result3 = pageCountString.match(pagePattern);
+	var pageStart = result3[1];
+	var pageEnd = result3[2];
+	var resultTotal = result3[3];
+
+	save("movies.json", JSON.stringify(movies, null, "\t"));
 }
 
 (function() {
