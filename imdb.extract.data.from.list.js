@@ -40,82 +40,82 @@ function save(filename, data) {
 }
 
 function getMovieList() {
-    let movieList = [];
+	let movieList = [];
 
-    $(".lister-item").each(function() {
-        "use strict";
-        let title = $(this).find("h3 a").text().trim();
-        let imdbUrl = $(this).find("h3 a").attr("href").trim();
-        let imdbPattern = /\/title\/tt(.*?)\//;
-        let result1 = imdbUrl.match(imdbPattern);
-        let imdbId = result1[1];
-        let year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
+	$(".lister-item").each(function() {
+		"use strict";
+		let title = $(this).find("h3 a").text().trim();
+		let imdbUrl = $(this).find("h3 a").attr("href").trim();
+		let imdbPattern = /\/title\/tt(.*?)\//;
+		let result1 = imdbUrl.match(imdbPattern);
+		let imdbId = result1[1];
+		let year = $(this).find(".lister-item-header .text-muted").text().trim(); // "(I) (dddd)"
 
-        //ugly fix
-        year = year.replace(" TV Movie", "");
-        year = year.replace(" Video", "");
-        year = year.replace(" TV Special", "");
+		//ugly fix
+		year = year.replace(" TV Movie", "");
+		year = year.replace(" Video", "");
+		year = year.replace(" TV Special", "");
 
-        let yearPattern = /\((\d{4})\)/i;
-        let result = year.match(yearPattern);
-        year = parseInt(result[1]);
+		let yearPattern = /\((\d{4})\)/i;
+		let result = year.match(yearPattern);
+		year = parseInt(result[1]);
 
-        let rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
-        let metascore = parseInt($(this).find(".ratings-metascore .metascore").text().trim());
-        let votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
-        let plot = null; //the plot string
-        let plotBox = $(this).find(".ratings-bar").next();
+		let rating = parseFloat($(this).find(".ratings-imdb-rating strong").text().trim());
+		let metascore = parseInt($(this).find(".ratings-metascore .metascore").text().trim());
+		let votes = parseInt($(this).find(".sort-num_votes-visible span[name=nv]").first().text().trim().replaceAll(",", ""));
+		let plot = null; //the plot string
+		let plotBox = $(this).find(".ratings-bar").next();
 
-        if(plotBox.hasClass("text-muted")) {
-            plot = plotBox.text().trim();
-        } else {
-            //if we got here, starsBox will probably fail too
-        }
-        let starsBox = plotBox.next();
-        let starsList = starsBox.find("a");
-        let stars = [];
+		if(plotBox.hasClass("text-muted")) {
+			plot = plotBox.text().trim();
+		} else {
+			//if we got here, starsBox will probably fail too
+		}
+		let starsBox = plotBox.next();
+		let starsList = starsBox.find("a");
+		let stars = [];
 
-        starsList.each(function() {
-            let personUrl = $(this).attr("href").trim();
+		starsList.each(function() {
+			let personUrl = $(this).attr("href").trim();
 
-            let starsPattern = /\/name\/nm(.*?)\//;
-            let result2 = personUrl.match(starsPattern);
+			let starsPattern = /\/name\/nm(.*?)\//;
+			let result2 = personUrl.match(starsPattern);
 
-            let personId = result2[1];
-            let name = $(this).text().trim();
+			let personId = result2[1];
+			let name = $(this).text().trim();
 
-            let starObj = {
-              personId : personId,
-              name : name
-            };
+			let starObj = {
+				personId : personId,
+				name : name
+			};
 
-            stars.push(starObj);
-        });
+			stars.push(starObj);
+		});
 
-        let certificate = $(this).find("p.text-muted .certificate").text().trim();
-        let runtime = $(this).find("p.text-muted .runtime").text().trim();
-        let genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
-        let posterUrl = $(this).find(".lister-item-image img").attr("src");
+		let certificate = $(this).find("p.text-muted .certificate").text().trim();
+		let runtime = $(this).find("p.text-muted .runtime").text().trim();
+		let genre = $(this).find("p.text-muted .genre").text().trim().split(",").map(element => element.trim());
+		let posterUrl = $(this).find(".lister-item-image img").attr("src");
 
-        let obj = {
-            title : title,
-            imdbId : imdbId,
-            year : year,
-            rating : rating,
-            votes : votes,
-            plot : plot,
-            certificate : certificate,
-            runtime : runtime,
-            genre : genre,
-            posterUrl : posterUrl,
-            metascore : metascore,
-            stars: stars
-        };
+		let obj = {
+			title : title,
+			imdbId : imdbId,
+			year : year,
+			rating : rating,
+			votes : votes,
+			plot : plot,
+			certificate : certificate,
+			runtime : runtime,
+			genre : genre,
+			posterUrl : posterUrl,
+			metascore : metascore,
+			stars: stars
+		};
 
-        movieList.push(obj);
-    });
+		movieList.push(obj);
+	});
 
-    return movieList;
+	return movieList;
 }
 
 function saveJson() {
@@ -138,11 +138,11 @@ function saveJson() {
 
 	console.clear();
 
-    $('<div style="margin-top: 12px;"><a id="download-json" href="#">Download JSON structure</a></div>').insertAfter(".nav");
+	$('<div style="margin-top: 12px;"><a id="download-json" href="#">Download JSON structure</a></div>').insertAfter(".nav");
 
-    $("body").on("click", "#download-json", function(evt) {
-        saveJson();
+	$("body").on("click", "#download-json", function(evt) {
+		saveJson();
 
-        evt.preventDefault();
-    });
+		evt.preventDefault();
+	});
 })();
