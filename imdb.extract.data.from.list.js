@@ -122,13 +122,13 @@ function saveJson() {
 	let movies = getMovieList();
 	
 	//get current page
-	var pageCountString = $(".nav .desc span:first-child").text().trim().replace(/,/g, "");
+	let pageCountString = $(".nav .desc span:first-child").text().trim().replace(/,/g, "");
 
-	var pagePattern = /(\d+)\-(\d+) of (\d+) titles/;
-	var result3 = pageCountString.match(pagePattern);
-	var pageStart = result3[1];
-	var pageEnd = result3[2];
-	var resultTotal = result3[3];
+	let pagePattern = /(\d+)\-(\d+) of (\d+) titles/;
+	let result3 = pageCountString.match(pagePattern);
+	let pageStart = result3[1];
+	let pageEnd = result3[2];
+	let resultTotal = result3[3];
 
 	save("movies.json", JSON.stringify(movies, null, "\t"));
 }
