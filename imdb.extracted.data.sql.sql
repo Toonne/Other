@@ -10,8 +10,19 @@ SQL server script to work with the extracted data from https://github.com/Toonne
 DECLARE @jsonData NVARCHAR(MAX) = 'Place movies-info.json content here';
 SELECT @jsonData = BulkColumn FROM OPENROWSET (BULK 'D:\combinedfiles.json', SINGLE_NCLOB) AS JsonData;
 
---DELETE FROM imdb_top;
---TRUNCATE TABLE imdb_top;
+/*
+DELETE FROM imdb_top;
+TRUNCATE TABLE imdb_top;
+
+DELETE FROM imdb_movie_genre;
+TRUNCATE TABLE imdb_movie_genre;
+
+DELETE FROM imdb_genre;
+TRUNCATE TABLE imdb_genre;
+
+DELETE FROM imdb_actor;
+TRUNCATE TABLE imdb_actor;
+*/
 
 --INSERT INTO imdb_top (title,imdbId,[year],rating,votes,plot,[certificate],runtime,genre,posterUrl,metascore,stars)
 SELECT
