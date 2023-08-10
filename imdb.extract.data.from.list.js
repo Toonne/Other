@@ -130,7 +130,7 @@ function saveJson() {
 	let pageEnd = result3[2];
 	let resultTotal = result3[3];
 
-    let fileName = "movies_" + pageStart + "-" + pageEnd + ".json";
+	let fileName = "movies_" + pageStart + "-" + pageEnd + ".json";
 
 	save(fileName, JSON.stringify(movies, null, "\t"));
 }
