@@ -5,7 +5,7 @@ SQL server script to import a phpMyAdmin export from srrdb main table.
 */
 
 CREATE TABLE [dbo].[srrdb_file](
-	[fldName] [nvarchar](255) NULL,
+	[fldName] [nvarchar](255) NOT NULL,
 	[fldGroup] [nvarchar](255) NULL,
 	[fldDate] [nvarchar](255) NULL,
 	[fldNFO] [nvarchar](255) NULL,
@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[srrdb_file](
 	[fldRarHash] [nvarchar](255) NULL,
 	[fldNote] [nvarchar](255) NULL,
 	[fldCompressed] [nvarchar](255) NULL,
-	[fldVersion] [nvarchar](255) NULL
-) ON [PRIMARY]
+	[fldVersion] [nvarchar](255) NULL,
+PRIMARY KEY ([fldName]))
 GO
 
 ---############################
