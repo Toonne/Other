@@ -120,7 +120,7 @@ function getMovieList() {
 
 function saveJson() {
 	let movies = getMovieList();
-	
+
 	//get current page
 	let pageCountString = $(".nav .desc span:first-child").text().trim().replace(/,/g, "");
 
@@ -130,7 +130,9 @@ function saveJson() {
 	let pageEnd = result3[2];
 	let resultTotal = result3[3];
 
-	save("movies.json", JSON.stringify(movies, null, "\t"));
+    let fileName = "movies_" + pageStart + "-" + pageEnd + ".json";
+
+	save(fileName, JSON.stringify(movies, null, "\t"));
 }
 
 (function() {
