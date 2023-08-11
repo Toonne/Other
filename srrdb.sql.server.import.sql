@@ -56,3 +56,9 @@ UPDATE srrdb_file SET fldNuked = SUBSTRING(fldNuked, 2, LEN(fldNuked) - 2) WHERE
 UPDATE srrdb_file SET fldImdb = SUBSTRING(fldImdb, 2, LEN(fldImdb) - 2) WHERE fldImdb LIKE '"%"'
 UPDATE srrdb_file SET fldRarHash = SUBSTRING(fldRarHash, 2, LEN(fldRarHash) - 2) WHERE fldRarHash LIKE '"%"'
 UPDATE srrdb_file SET fldCompressed = SUBSTRING(fldCompressed, 2, LEN(fldCompressed) - 2) WHERE fldCompressed LIKE '"%"'
+
+--Create an index for imdb id
+CREATE NONCLUSTERED INDEX [IX-fldImdb] ON [dbo].[srrdb_file] (
+	[fldImdb] ASC
+) ON [PRIMARY]
+GO
