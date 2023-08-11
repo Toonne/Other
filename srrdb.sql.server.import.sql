@@ -27,6 +27,8 @@ GO
 --- Batch import data
 ---############################
 
+-- Convert EOL to Windows format before BCP command, otherwise it will give an error
+	
 --F2 = start read from line 2 (when file has header)
 bcp srrdb_file in "srrdb_file-2023-01-12.csv" -S "WEB-01" -d "srrdb" -U "xxx" -P "xxx" -q -c -F2 -t ","
 
