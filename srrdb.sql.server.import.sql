@@ -22,6 +22,11 @@ CREATE TABLE [dbo].[srrdb_file](
 	[fldVersion] [nvarchar](255) NULL,
 PRIMARY KEY ([fldName]))
 GO
+	
+CREATE NONCLUSTERED INDEX [IX-fldImdb] ON [dbo].[srrdb_file] (
+	[fldImdb] ASC
+) ON [PRIMARY]
+GO
 
 ---############################
 --- Batch import data
