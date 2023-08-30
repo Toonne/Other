@@ -5,6 +5,9 @@
 zpool status -v
 zpool clear Storport
 
+#Clear task history
+systemctl restart middlewared
+
 #Smart data status
 smartctl -a /dev/sdb
 smartctl -a /dev/sdc
