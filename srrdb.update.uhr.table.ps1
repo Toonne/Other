@@ -3,7 +3,7 @@
 #
 
 #Config
-$releaseFolders = @("M:\Movies.720p\", "M:\Movies.1080p\")
+$releaseFolders = @("M:\Movies.720p\", "M:\Movies.1080p\");
 
 $Connection = New-Object System.Data.SQLClient.SQLConnection;
 $Connection.ConnectionString = "Server='WEB-01';database='srrdb';Integrated Security=SSPI;";
@@ -14,7 +14,7 @@ $Command.Connection = $Connection;
 $releases = @();
 
 foreach($releaseFolder in $releaseFolders) {
-	$releases += Get-ChildItem -Path $releaseFolder -Directory -Exclude "_*" -Force -ErrorAction SilentlyContinue | Select-Object Name
+	$releases += Get-ChildItem -Path $releaseFolder -Directory -Exclude "_*" -Force -ErrorAction SilentlyContinue | Select-Object Name;
 }
 
 #Sort combined release list alphabetical (optional)
@@ -30,7 +30,7 @@ foreach($release in $releases) {
 
 	if ($releaseName -match "CSEI2P~Z")
 	{
-		$releaseName = "Con.Man.2018.STV.720p.BluRay.x264-TheWretched"
+		$releaseName = "Con.Man.2018.STV.720p.BluRay.x264-TheWretched";
 	}
 
 	$insertquery = "INSERT INTO user_have_releases (Release) VALUES ('" + $releaseName + "')";
