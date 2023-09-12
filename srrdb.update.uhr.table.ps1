@@ -3,26 +3,35 @@
 #
 
 #Config
-$releaseFolders = @("M:\Movies.720p\", "M:\Movies.1080p\");
+$releaseFolders = @("M:\Movies.720p\", "M:\Movies.1080p\", "M:\Movies.SD\");
 
-$Connection = New-Object System.Data.SQLClient.SQLConnection;
-$Connection.ConnectionString = "Server='WEB-01';database='srrdb';Integrated Security=SSPI;";
-$Connection.Open();
-$Command = New-Object System.Data.SQLClient.SQLCommand;
-$Command.Connection = $Connection;
+$connection = New-Object System.Data.SQLClient.SQLConnection;
+$connection.ConnectionString = "Server='WEB-01';database='srrdb';Integrated Security=SSPI;";
+$connection.Open();
+$command = New-Object System.Data.SQLClient.SQLCommand;
+$command.Connection = $connection;
 
 $releases = @();
 
+Write-Output "Getting directory listing...";
+
 foreach($releaseFolder in $releaseFolders) {
+	Write-Output "...for [$releaseFolder]";
 	$releases += Get-ChildItem -Path $releaseFolder -Directory -Exclude "_*" -Force -ErrorAction SilentlyContinue | Select-Object Name;
 }
 
-#Sort combined release list alphabetical (optional)
+Write-Output "Sorting list alphabetically";
+
+#Sort combined release list alphabetically (optional)
 $releases = $releases | Sort-Object -Property { $_.Name };
 
+Write-Output "Truncating old results";
+
 #First truncate existing data...
-$Command.CommandText = "TRUNCATE TABLE [user_have_releases]";
-$Command.ExecuteNonQuery();
+$command.CommandText = "TRUNCATE TABLE [user_have_releases]";
+$command.ExecuteNonQuery();
+
+Write-Output "Adding releases";
 
 #...then add all releases
 foreach($release in $releases) {
@@ -33,7 +42,9 @@ foreach($release in $releases) {
 		$releaseName = "Con.Man.2018.STV.720p.BluRay.x264-TheWretched";
 	}
 
-	$insertquery = "INSERT INTO user_have_releases (Release) VALUES ('" + $releaseName + "')";
-	$Command.CommandText = $insertquery;
-	$Command.ExecuteNonQuery();
+	$insertquery = "INSERT INTO user_have_releases (Release) VALUES ('$releaseName')";
+	$command.CommandText = $insertquery;
+	$command.ExecuteNonQuery();
 }
+
+Write-Output "All done";
