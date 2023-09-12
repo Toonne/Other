@@ -28,6 +28,8 @@ CREATE NONCLUSTERED INDEX [IX-fldImdb] ON [dbo].[srrdb_file] (
 ) ON [PRIMARY]
 GO
 
+TRUNCATE TABLE srrdb_file
+
 ---############################
 --- Batch import data
 ---############################
