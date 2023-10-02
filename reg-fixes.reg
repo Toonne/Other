@@ -67,3 +67,6 @@ Windows Registry Editor Version 5.00
 "TranslateEnabled"=dword:00000000
 "MicrosoftEditorProofingEnabled"=dword:00000000
 "MicrosoftEditorSynonymsEnabled"=dword:00000000
+"TabServicesEnabled"=dword:00000000
+"AlternateErrorPagesEnabled"=dword:00000000
+
