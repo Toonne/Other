@@ -21,6 +21,13 @@ LEFT JOIN srrdb_file srrdb ON (uhr.Release = srrdb.fldName)
 LEFT JOIN imdb_top imdb ON (srrdb.fldImdb = imdb.imdbId)
 WHERE srrdb.fldName IS NOT NULL AND imdb.Id IS NULL
 
+--"Top movies - no releases"
+SELECT imdb_top.*
+FROM imdb_top
+LEFT JOIN srrdb_import srrdb ON (imdb_top.imdbId = srrdb.fldImdb)
+WHERE srrdb.fldImdb IS NULL
+ORDER BY votes DESC
+
 --"Have, nuked releases. TODO: improve (lists each multiple times)"
 SELECT uhr.*,pre.[name],nuke.reason
 FROM user_have_releases uhr
