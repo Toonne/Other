@@ -14,6 +14,13 @@ FROM user_have_releases uhr
 LEFT JOIN srrdb_file srrdb ON (uhr.Release = srrdb.fldName)
 WHERE fldName IS NOT NULL AND fldImdb IS NULL
 
+--"Have, not in imdb_top"
+SELECT uhr.Release,srrdb.fldImdb
+FROM user_have_releases uhr
+LEFT JOIN srrdb_file srrdb ON (uhr.Release = srrdb.fldName)
+LEFT JOIN imdb_top imdb ON (srrdb.fldImdb = imdb.imdbId)
+WHERE srrdb.fldName IS NOT NULL AND imdb.Id IS NULL
+
 --"Have, nuked releases. TODO: improve (lists each multiple times)"
 SELECT uhr.*,pre.[name],nuke.reason
 FROM user_have_releases uhr
