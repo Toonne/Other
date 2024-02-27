@@ -54,3 +54,28 @@ SELECT Title,imdbid,('https://www.imdb.com/title/tt' + imdbid + '/'),[year],rati
 FROM imdb_top
 WHERE imdbId NOT IN ((SELECT fldImdb FROM user_have_releases uhr LEFT JOIN srrdb_file ON (uhr.Release = fldname) WHERE fldimdb IS NOT NULL))
 ORDER BY votes DESC
+
+--"Don't have that is in imdb top, without imdb lookup"
+SELECT * FROM (SELECT
+	MAX(Title) AS Title,
+	imdbid AS ImdbId,
+	('https://www.imdb.com/title/tt' + imdbid + '/') AS ImdbUrl,
+	MAX([year]) AS [Year],
+	MAX(rating) AS Rating,
+	MAX(votes) AS Votes,
+	COUNT(srrdb.fldName) AS ReleaseAmount,
+	STRING_AGG(CAST(srrdb.fldName AS nvarchar(MAX)), ', ') AS Releases
+FROM imdb_top
+LEFT JOIN srrdb_file srrdb ON (
+	imdb_top.imdbId = srrdb.fldImdb AND
+	srrdb.fldForeign = 'no' AND
+	srrdb.fldName LIKE '%720p%' AND
+	srrdb.fldName NOT LIKE '%.multi.%' AND srrdb.fldName NOT LIKE '%subpack%' AND srrdb.fldName NOT LIKE '%.VC1.%' AND srrdb.fldName NOT LIKE '%.WMV.%' AND  srrdb.fldName NOT LIKE '%.WMV-%' AND srrdb.fldName NOT LIKE '%.audiopack.%' AND
+	srrdb.fldName NOT LIKE '%.THEATRICAL.%' AND
+	srrdb.fldName NOT LIKE '%-EwDp' AND srrdb.fldName NOT LIKE '%-MHQ' AND srrdb.fldName NOT LIKE '%-MARS' AND srrdb.fldName NOT LIKE '%-LiBRARiANS' AND srrdb.fldName NOT LIKE '%-TABULARiA'
+)
+WHERE imdbId NOT IN ((SELECT fldImdb FROM _have_releases uhr LEFT JOIN srrdb_file ON (uhr.Release = fldname) WHERE fldimdb IS NOT NULL))
+GROUP BY imdb_top.imdbId
+HAVING COUNT(srrdb.fldName) = 1
+) AS query
+ORDER BY query.Votes DESC
