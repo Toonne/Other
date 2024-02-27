@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>SMS conversation, simple CSS</title>
+<style type="text/css">
+html, body {
+	padding-top: 50px;
+	padding-left: 100px;
+	font-size: 1rem;
+}
+
+.wrapper {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #868686;
+	max-width: 25rem;
+}
+
+.date {
+	font-size: 0.75rem;
+	color: #868686;
+	font-weight: 700;
+	text-align: center;
+	margin: 0 0 0.25rem 0;
+}
+
+.message {
+	max-width: 80%;
+	width: fit-content;
+	color: #000000;
+	margin: 0.75rem 0;
+}
+
+.bubble {
+	margin: 0;
+	color: #000000;
+	padding: 0.75rem;
+	border-radius: 0.75rem;
+	line-height: 1.2;
+	width: fit-content;
+	position: relative;
+}
+
+.sender {
+	font-size: 0.75rem;
+	color: #868686;
+	padding: 0 0.75rem;
+	margin-bottom: 0.125rem;
+}
+
+.bubble:before, .bubble:after {
+	bottom: -.1rem;
+	content: "";
+	height: 1rem;
+	position: absolute;
+	background-color: #ffffff; /* must be same as background color */
+}
+
+.message:not(.isPhoneOwner) .bubble:before {
+	border-bottom-right-radius: .8rem .7rem;
+	border-left: 1rem solid;
+	left: -.35rem;
+	transform: translateY(-.1rem);
+}
+
+.message:not(.isPhoneOwner) .bubble:after {
+	border-bottom-right-radius: .5rem;
+	left: 1.25rem;
+	transform: translate(-1.875rem,-0.125rem);
+	width: 0.625rem;
+}
+
+.message:not(.isPhoneOwner) .bubble-green:before {
+	border-left: 1rem solid #e2f5e1;
+}
+
+.message:not(.isPhoneOwner) .bubble-red:before {
+	border-left: 1rem solid #f5e1e4;
+}
+
+.isPhoneOwner {
+	margin-left: auto;
+}
+
+.isPhoneOwner .bubble:before {
+	border-bottom-left-radius: .8rem .7rem;
+	border-right: 1rem solid #3a50ff;
+	right: -.35rem;
+	transform: translateY(-.1rem);
+}
+
+.isPhoneOwner .bubble:after {
+	border-bottom-left-radius: .5rem;
+	right: -2.5rem;
+	transform: translate(-1.875rem,-0.125rem);
+	width: 0.625rem;
+}
+
+.bubble-blue {
+	background-color: #3a50ff;
+	color: #ffffff;
+}
+
+.bubble-green {
+	background-color: #e2f5e1;
+}
+
+.bubble-red {
+	background-color: #f5e1e4;
+}
+</style>
+</head>
+<body>
+
+<div class="widget-wrapper">
+	<div class="wrapper">
+		<div class="section">
+			<p class="date">29 oktober • 21:01</p>
+		</div>
+		<div class="section message">
+			<p class="sender">Lorem</span>
+			<p class="bubble bubble-green">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor tellus, feugiat quis mauris eget.</p>
+		</div>
+
+		<div class="section">
+			<p class="date">21:05</p>
+		</div>
+		<div class="section message">
+			<p class="sender">Lorem</p>
+			<p class="bubble bubble-green">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor tellus, feugiat quis mauris eget.</p>
+		</div>
+
+		<div class="section">
+			<p class="date">21:09</p>
+		</div>
+		<div class="section message isPhoneOwner">
+			<p class="sender">Ipsum</p>
+			<p class="bubble bubble-blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor tellus, feugiat quis mauris eget.</p>
+		</div>
+
+		<div class="section">
+			<p class="date">21:14</p>
+		</div>
+		<div class="section message">
+			<p class="sender">Dolor</p>
+			<p class="bubble bubble-red">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor tellus, feugiat quis mauris eget.</p>
+		</div>
+		
+		<div class="section">
+			<p class="date">21:58</p>
+		</div>
+		<div class="section message isPhoneOwner">
+			<p class="sender">Ipsum</p>
+			<p class="bubble bubble-blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor tellus, feugiat quis mauris eget.</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
