@@ -5,9 +5,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Skalman
+-- Author: Skalman
 -- Create date: 2024-02-26
--- Description:	Returns the group name from a release name
+-- Description: Returns the group name from a release name
 -- =============================================
 CREATE OR ALTER FUNCTION [dbo].[getGroupNameFrom] (@releaseName NVARCHAR(255))
 RETURNS NVARCHAR(255) AS
