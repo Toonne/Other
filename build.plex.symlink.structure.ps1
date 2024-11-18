@@ -11,7 +11,7 @@ $series = Get-ChildItem -Path $sourcePath
 
 foreach ($serie in $series) {
 	$serieName = $serie.Name;
-	$serieFormattedName = $serieName.replace("."," "); #TODO: read title:xxx from .plexmatch
+	$serieFormattedName = $serieName.replace("."," ");
 	$hasPlexMatch = $false;
 	$episodeMatch = @{};
 	$plexMatch = @{};
