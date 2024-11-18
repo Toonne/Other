@@ -5,11 +5,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Skalman
+-- Author: Skalman
 -- Create date: 2024-02-26
 -- Description:	Returns true/false wether the release is foreign
 -- =============================================
-ALTER FUNCTION [dbo].[isForeign] (@releaseName NVARCHAR(255))
+CREATE OR ALTER FUNCTION [dbo].[isForeign] (@releaseName NVARCHAR(255))
 RETURNS BIT AS
 BEGIN
 	SET @releaseName = LOWER(@releaseName)
